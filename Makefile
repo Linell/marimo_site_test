@@ -1,5 +1,5 @@
 # Define service names explicitly
-SERVICES := cool_report lame_report
+SERVICES := cool_report lame_report fake_api
 
 # Define default target
 .PHONY: all
@@ -33,3 +33,25 @@ clean:
 	@for service in $(SERVICES) ; do \
 		$(MAKE) -C $$service clean; \
 	done
+
+.PHONY: deploy_reports
+deploy_reports:
+	@for service in $(SERVICES) ; do \
+		echo "Deploying $$service..."; \
+		$(MAKE) -C $$service deploy; \
+	done
+
+.PHONY: delete_reports
+delete_reports:
+	@for service in $(SERVICES) ; do \
+		echo "Deleting $$service..."; \
+		$(MAKE) -C $$service delete; \
+	done
+
+.PHONY: apply_ingress
+apply_ingress:
+	kubectl apply -f ingress.yaml
+
+.PHONY: delete_ingress
+delete_ingress:
+	kubectl delete -f ingress.yaml

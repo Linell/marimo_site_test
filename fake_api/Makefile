@@ -1,4 +1,4 @@
-IMAGE_NAME := cool_report
+IMAGE_NAME := fake_api
 K8S_CONFIG := k8s-config.yaml
 PORT ?= 8080
 

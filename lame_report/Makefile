@@ -1,12 +1,22 @@
-# Define the image name
 IMAGE_NAME := lame_report
-
-# Define default port number
-PORT ?= 8081
+K8S_CONFIG := k8s-config.yaml
+PORT ?= 8080
 
 .PHONY: build
 build:
 	docker build -f Dockerfile -t $(IMAGE_NAME):latest .
+
+.PHONY: push
+push:
+	docker push $(IMAGE_NAME):latest
+
+.PHONY: deploy
+deploy:
+	kubectl apply -f $(K8S_CONFIG)
+
+.PHONY: delete
+delete:
+	kubectl delete -f $(K8S_CONFIG)
 
 .PHONY: start
 start:

@@ -1,0 +1,32 @@
+# ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: reports-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "localhost"
+    http:
+      paths:
+      - path: /cool_report
+        pathType: Prefix
+        backend:
+          service:
+            name: cool-report
+            port:
+              number: 80
+      - path: /lame_report
+        pathType: Prefix
+        backend:
+          service:
+            name: lame-report
+            port:
+              number: 80
+      - path: /fake_api
+        pathType: Prefix
+        backend:
+          service:
+            name: fake-api
+            port:
+              number: 80
